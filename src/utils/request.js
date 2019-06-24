@@ -23,9 +23,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(config => {
     // Do something before request is sent
-    // config.headers['authkey'] = localStorage.getItem("authKey")
-    // config.headers['sessionid'] = localStorage.getItem("sessionId")
-    // config.params['token']=store.state.token
+    config.headers['authkey'] = store.state.token
     if(config.data instanceof FormData){
         config.headers['Content-Type'] = "multipart/form-data;charset=UTF-8"
     }

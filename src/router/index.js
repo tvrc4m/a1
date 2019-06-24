@@ -19,6 +19,7 @@ const NewsList = () => import('@/views/news/index')
 const NewsForm = () => import('@/views/news/form')
 
 const CompanyList = () => import('@/views/company/index')
+const CompanyDetail = () => import('@/views/company/detail')
 const CompanyForm = () => import('@/views/company/form')
 const CompanyUserList = () => import('@/views/company/user/index')
 const CompanyUserForm = () => import('@/views/company/user/form')
@@ -55,80 +56,64 @@ const routes = [
             {
                 path: "/",
                 name: "home",
-                components: {
-                    default: home,
-                }
+                component: home
             },
             {
                 path: "/adm/user",
                 name: "admin_user",
-                components: {
-                    default: AdminUserList,
+                component: AdminUserList,
+                meta:{
+                    sidebar:"admin_user"
                 }
             },
             {
                 path: "/adm/user/add",
                 name: "admin_user_add",
-                components: {
-                    default: AdminUserForm,
+                component: AdminUserForm,
+                meta:{
+                    sidebar:"admin_user"
                 }
             },
             {
                 path: "/adm/user/edit/:id",
                 name: "admin_user_edit",
-                components: {
-                    default: AdminUserForm,
+                component: AdminUserForm,
+                meta:{
+                    sidebar:"admin_user"
                 }
             },
             {
                 path: "/adm/rule",
                 name: "admin_rule",
-                components: {
-                    default: AdminRuleList,
+                component: AdminRuleList,
+                meta:{
+                    sidebar:"admin_rule"
                 }
             },
             {
                 path: "/adm/rule/add",
                 name: "admin_rule_add",
-                components: {
-                    default: AdminRuleForm,
+                component: AdminRuleForm,
+                meta:{
+                    sidebar:"admin_rule"
                 }
             },
             {
                 path: "/adm/rule/edit/:id",
                 name: "admin_rule_edit",
-                components: {
-                    default: AdminRuleForm,
+                component: AdminRuleForm,
+                meta:{
+                    sidebar:"admin_rule"
                 }
             },
             {
                 path: "/adm/rule/:id/permission",
                 name: "admin_rule_permission",
-                components: {
-                    default: AdminRulePermission,
+                component: AdminRulePermission,
+                meta:{
+                    sidebar:"admin_rule"
                 }
-            },
-            {
-                path: "user",
-                name: "user",
-                components: {
-                    default: UserList,
-                }
-            },
-            {
-                path: "user/add",
-                name: "user_add",
-                components: {
-                    default: UserForm,
-                }
-            },
-            {
-                path: "user/edit/:id",
-                name: "user_edit",
-                components: {
-                    default: UserForm,
-                }
-            },
+            }
         ]
     },
     {
@@ -142,6 +127,9 @@ const routes = [
                 name: "news",
                 components: {
                     default: NewsList,
+                },
+                meta:{
+                    sidebar:"news"
                 }
             },
             {
@@ -149,6 +137,9 @@ const routes = [
                 name: "news_add",
                 components: {
                     default: NewsForm,
+                },
+                meta:{
+                    sidebar:"news"
                 }
             },
             {
@@ -156,6 +147,9 @@ const routes = [
                 name: "news_edit",
                 components: {
                     default: NewsForm,
+                },
+                meta:{
+                    sidebar:"news"
                 }
             },
         ]
@@ -169,43 +163,49 @@ const routes = [
             {
                 path: "module",
                 name: "policy_module",
-                components: {
-                    default: PolicyModuleList,
+                component: PolicyModuleList,
+                meta:{
+                    sidebar:"policy_module"
                 }
             },
             {
                 path: "module/add",
                 name: "policy_module_add",
-                components: {
-                    default: PolicyModuleForm,
+                component: PolicyModuleForm,
+                meta:{
+                    sidebar:"policy_module"
                 }
             },
             {
                 path: "module/edit/:id",
                 name: "policy_module_edit",
-                components: {
-                    default: PolicyModuleForm,
+                component: PolicyModuleForm,
+                meta:{
+                    sidebar:"policy_module"
                 }
             },
             {
                 path: "news",
                 name: "policy_news",
-                components: {
-                    default: PolicyNewsList,
+                component: PolicyNewsList,
+                meta:{
+                    sidebar:"policy_news"
                 }
             },
             {
                 path: "news/add",
                 name: "policy_news_add",
-                components: {
-                    default: PolicyNewsForm,
+                component: PolicyNewsForm,
+                meta:{
+                    sidebar:"policy_news"
                 }
             },
             {
                 path: "news/edit/:id",
                 name: "policy_news_edit",
-                components: {
-                    default: PolicyNewsForm,
+                component: PolicyNewsForm,
+                meta:{
+                    sidebar:"policy_news"
                 }
             },
         ]
@@ -219,8 +219,9 @@ const routes = [
             {
                 path: "",
                 name: "company",
-                components: {
-                    default: CompanyList,
+                component:CompanyList,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
@@ -228,81 +229,105 @@ const routes = [
                 name: "company_add",
                 components: {
                     default: CompanyForm,
+                },
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: "edit/:id",
                 name: "company_edit",
-                components: {
-                    default: CompanyForm,
+                component: CompanyForm,
+                meta:{
+                    sidebar:"company"
+                }
+            },
+            {
+                path: "detail/:id",
+                name: "company_detail",
+                component: CompanyDetail,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/user",
                 name: "company_user",
-                components: {
-                    default: CompanyUserList,
+                component: CompanyUserList,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/user/add",
                 name: "company_user_add",
-                components: {
-                    default: CompanyUserForm,
+                component: CompanyUserForm,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/user/edit/:id",
                 name: "company_user_edit",
-                components: {
-                    default: CompanyUserForm,
+                component: CompanyUserForm,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/rule",
                 name: "company_rule",
-                components: {
-                    default: CompanyRuleList,
+                component: CompanyRuleList,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/rule/add",
                 name: "company_rule_add",
-                components: {
-                    default: CompanyRuleForm,
+                component: CompanyRuleForm,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/rule/edit/:id",
                 name: "company_rule_edit",
-                components: {
-                    default: CompanyRuleForm,
+                component: CompanyRuleForm,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/rule/edit/:id/permission",
                 name: "company_rule_permission",
-                component: CompanyRulePermission
+                component: CompanyRulePermission,
+                meta:{
+                    sidebar:"company"
+                }
             },
             {
                 path: ":cid/office",
                 name: "company_office",
-                components: {
-                    default: CompanyOfficeList,
+                component: CompanyOfficeList,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/office/add",
                 name: "company_office_add",
-                components: {
-                    default: CompanyOfficeForm,
+                component: CompanyOfficeForm,
+                meta:{
+                    sidebar:"company"
                 }
             },
             {
                 path: ":cid/office/edit/:id",
                 name: "company_office_edit",
-                components: {
-                    default: CompanyOfficeForm,
+                component: CompanyOfficeForm,
+                meta:{
+                    sidebar:"company"
                 }
             },
         ]
@@ -316,23 +341,17 @@ const routes = [
             {
                 path: ":name",
                 name: "order",
-                components: {
-                    default: OrderList,
-                }
+                component: OrderList,
             },
             {
                 path: "add",
                 name: "order_add",
-                components: {
-                    default: OrderForm,
-                }
+                component: OrderForm,
             },
             {
                 path: "edit/:id",
                 name: "order_edit",
-                components: {
-                    default: OrderForm,
-                }
+                component: OrderForm
             },
         ]
     },
@@ -353,21 +372,33 @@ const routes = [
                 path:"tijian/package/add",
                 name:"tijian_package_add",
                 component:TijianPakcageForm,
+                meta:{
+                    sidebar:"tijian"
+                }
             },
             {
                 path:"tijian/package/add/:id",
                 name:"tijian_package_edit",
                 component:TijianPakcageForm,
+                meta:{
+                    sidebar:"tijian"
+                }
             },
             {
                 path:"jiating/doctor/add",
                 name:"jiating_doctor_add",
                 component:JiatingDoctorForm,
+                meta:{
+                    sidebar:"jiating"
+                }
             },
             {
                 path:"jiating/doctor/add/:id",
                 name:"jiating_doctor_edit",
                 component:JiatingDoctorForm,
+                meta:{
+                    sidebar:"jiating"
+                }
             }
         ]
     }

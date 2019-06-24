@@ -44,7 +44,7 @@
     import tableLoading from '@/components/loading/table'
     import loading_mixin from '@/mixins/loading'
     import page_mixin from '@/mixins/page'
-    import { getAdminUsers,delAdminUser,enableAdminUsers,disableAdminUsers } from '@/api/admin'
+    import { getAdminUsers,delAdminUser } from '@/api/admin'
     export default {
         name:"AdminUser",
         components:{
@@ -116,13 +116,6 @@
                         this.data=this.data.filter(item=>item.id!=user.id)
                     })
                 })
-            },
-            changeStatus(user,status){
-                if(status==1){
-                    enableAdminUsers([user.id])
-                }else{
-                    disableAdminUsers([user.id])
-                }
             },
             changePage(page){
                 this.params.page=page

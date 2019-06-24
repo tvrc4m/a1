@@ -40,10 +40,8 @@
                 }
             }
         },
-        computed:{
-            ...mapMutations("admin",["setLoginInfo","setPermission"])
-        },
         methods:{
+            ...mapMutations(["setLoginInfo","setPermission"]),
             doLogin(){
                 if(!this.user.username || !this.user.username.length){
                     this.$message.error('请填写用户名')
@@ -54,11 +52,12 @@
                     return false
                 }
                 userLogin(this.user.username,this.user.password).then(data=>{
-                    this.setLoginInfo({token:data.data.token,name:data.data.name})
-                    getAdminPermisions(data.data.rule_id).then(data=>{
-                        setPermission({
-                            is_super:data.data.is_super,
-                            paths:data.data.path
+                    this.setLoginInfo({token:data.token,name:data.name})
+                    getAdminPermisions(data.rule_id).then(data=>{
+                        console.log("permission",data)
+                        this.setPermission({
+                            is_super:data.is_super,
+                            paths:data.path
                         })
                         this.$router.push("/")
                     })
