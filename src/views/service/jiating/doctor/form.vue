@@ -88,7 +88,7 @@
                 this.company=data
                 this.breadcrumbs.push({
                     name: this.company.name,
-                    route:{name:"company"}
+                    route:{name:"company_detail",params:{id:this.company.id}}
                 })
                 this.breadcrumbs.push({
                     name: this.service.name,

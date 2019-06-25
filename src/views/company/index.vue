@@ -31,7 +31,8 @@
                                         <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_user',params:{cid:company.id}})">用户列表</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editUser(company)">编辑</button>
+                                        <button type="button" class="btn btn-success btn-xs waves-effect waves-light m-r-10" @click="detailCompany(company)">详情</button>
+                                        <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editCompany(company)">编辑</button>
                                         <button type="button" class="btn btn-warning btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_office',params:{cid:company.id}})">科室</button>
                                         <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(company)">删除</button>
                                     </td>
@@ -54,7 +55,7 @@
     import page_mixin from '@/mixins/page'
     import { getCompanies,delCompany } from '@/api/company'
     export default {
-        name:"AdminUser",
+        name:"AdminCompany",
         components:{
             breadcrumb,
             iswitch,
@@ -125,22 +126,18 @@
             }
         },
         methods:{
-            editUser(company){
+            editCompany(company){
                 this.$router.push({name:"company_edit",params:{id:company.id}})
+            },
+            detailCompany(company){
+                this.$router.push({name:"company_detail",params:{id:company.id}})
             },
             doDel(company){
                 this.$confirm('是否确认删除?').then(()=>{
-                    delUser(company.id).then(()=>{
+                    delCompany(company.id).then(()=>{
                         this.data=this.data.filter(item=>item.id!=company.id)
                     })
                 })
-            },
-            changeStatus(company,status){
-                if(status==1){
-                    editUserStatus(company.id, 1)
-                }else{
-                    editUserStatus(company.id, 0)
-                }
             },
             changePage(page){
                 this.params.page=page

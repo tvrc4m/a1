@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-1">开通服务</label>
                     <div class="col-md-10" style="padding-top: 7px;">
-                        <router-link :to="service | serviceLink(company.id, services)" v-for="service in company.services">
+                        <router-link :to="service | serviceLink(company.id, services)" v-for="(service,index) in company.services" :key="index">
                             [{{service | serviceName(services)}}]&nbsp;&nbsp;
                         </router-link>
                     </div>
