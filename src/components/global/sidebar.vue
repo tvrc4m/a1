@@ -68,6 +68,11 @@
                                 url:"/adm/rule",
                                 key: "admin_rule"
                             },
+                            {
+                                name:"部门管理",
+                                url:"/adm/dept",
+                                key: "admin_dept"
+                            },
                         ]
                     },
                     {
@@ -109,6 +114,24 @@
                                 name:"新闻管理",
                                 url:"/policy/news",
                                 key:"policy_news"
+                            },
+                        ]
+                    },
+                    {
+                        name:"人才管理",
+                        key:"user",
+                        icon:"ti-user",
+                        open:true,
+                        chear:[
+                            {
+                                name:"用户管理",
+                                url:"/user",
+                                key:"user"
+                            },
+                            {
+                                name:"个性需求管理",
+                                url:"/user/demand",
+                                key:"user_demand"
                             },
                         ]
                     }

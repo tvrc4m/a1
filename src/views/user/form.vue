@@ -88,7 +88,7 @@
             }
             this.breadcrumbs=[
                 {
-                    name:"用户管理",
+                    name:"人才管理",
                     route:""
                 },
                 {

@@ -12,8 +12,12 @@ const AdminUserForm = () => import('@/views/admin/user/form')
 const AdminRuleList = () => import('@/views/admin/rule/index')
 const AdminRuleForm = () => import('@/views/admin/rule/form')
 const AdminRulePermission = () => import('@/views/admin/rule/permission')
+const AdminDeptList = () => import('@/views/admin/dept/index')
+const AdminDeptForm = () => import('@/views/admin/dept/form')
+
 const UserList = () => import('@/views/user/index')
 const UserForm = () => import('@/views/user/form')
+const UserDemandList = () => import('@/views/user/demand/index')
 
 const NewsList = () => import('@/views/news/index')
 const NewsForm = () => import('@/views/news/form')
@@ -113,7 +117,31 @@ const routes = [
                 meta:{
                     sidebar:"admin_rule"
                 }
-            }
+            },
+            {
+                path: "/adm/dept",
+                name: "admin_dept",
+                component: AdminDeptList,
+                meta:{
+                    sidebar:"admin_dept"
+                }
+            },
+            {
+                path: "/adm/dept/add",
+                name: "admin_dept_add",
+                component: AdminDeptForm,
+                meta:{
+                    sidebar:"admin_dept"
+                }
+            },
+            {
+                path: "/adm/dept/edit/:id",
+                name: "admin_dept_edit",
+                component: AdminDeptForm,
+                meta:{
+                    sidebar:"admin_dept"
+                }
+            },
         ]
     },
     {
@@ -400,6 +428,34 @@ const routes = [
                     sidebar:"jiating"
                 }
             }
+        ]
+    },
+    {
+        path: '/user',
+        components: {
+            default: LayoutBasic,
+        },
+        children:[
+            {
+                path: "",
+                name: "user",
+                component: UserList,
+            },
+            {
+                path: "add",
+                name: "user_add",
+                component: UserForm,
+            },
+            {
+                path: "edit/:id",
+                name: "user_edit",
+                component: UserForm
+            },
+             {
+                path: "demand",
+                name: "user_demand",
+                component: UserDemandList,
+            },
         ]
     }
 ]

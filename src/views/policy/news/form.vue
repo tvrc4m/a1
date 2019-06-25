@@ -9,6 +9,7 @@
         <div class="row">
             <form class="form-horizontal" role="form">
                 <iform type="select" label="模块" placeholder="请选择模块" :options="modules" required :value.sync="news.module_id"></iform>
+                <iform type="select" label="部门" placeholder="请选择部门" :options="depts" required :value.sync="news.dept_id"></iform>
                 <iform type="text" label="标题" placeholder="请输入标题" :value.sync="news.title" required></iform>
                 <iform type="textarea" label="内容" placeholder="请输入内容" :value.sync="news.content" required></iform>
                 <iform type="text" label="排序值" placeholder="从大到小排序" :value.sync="news.sort"></iform>
@@ -22,6 +23,7 @@
     import iform from '@/components/form/index'
     import breadcrumb from '@/components/breadcrumb/index'
     import { addNews,getNews,editNews,listModule } from '@/api/policy'
+    import { allDepts } from '@/api/admin/dept'
     import { uploadImage,getImageUrl } from '@/api/upload'
     import { assertEmpty,assertNumber,assertLength,assertEmail,assertPhone } from '@/utils/validate'
     export default {
@@ -34,6 +36,7 @@
             return {
                 news:{},
                 modules:[],
+                depts:[],
                 breadcrumbs:[],
                 add:true
             }
@@ -52,6 +55,10 @@
             updateNews(){
                 if(!assertEmpty(this.news.module_id)){
                     this.$message.error('请选择所属模块')
+                    return false
+                }
+                if(!assertEmpty(this.news.dept_id)){
+                    this.$message.error('请选择部门')
                     return false
                 }
                 if(!assertEmpty(this.news.title)){
@@ -86,6 +93,14 @@
             }
             listModule({limit:100}).then(data=>{
                 this.modules=data.data.map(item=>{
+                    return {
+                        name:item.name,
+                        value:item.id
+                    }
+                })
+            })
+            allDepts().then(data=>{
+                this.depts=data.map(item=>{
                     return {
                         name:item.name,
                         value:item.id

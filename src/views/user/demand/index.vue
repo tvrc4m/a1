@@ -2,7 +2,7 @@
      <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <breadcrumb :paths="breadcrumbs" :actions="actions"></breadcrumb>
+                <breadcrumb :paths="breadcrumbs"></breadcrumb>
                 <p class="text-muted page-title-alt"></p>
             </div>
         </div>
@@ -17,20 +17,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(user,index) in data" :key="index">
-                                    <td>{{user.id}}</td>
-                                    <td>{{user.phone}}</td>
-                                    <td>{{user.realname}}</td>
-                                    <td>{{user.sex==1?"男":"女"}}</td>
-                                    <td>{{user.company}}</td>
-                                    <td>{{user.job}}</td>
+                                <tr v-for="(demand,index) in data" :key="index">
+                                    <td>{{demand.id}}</td>
+                                    <td>{{demand.img}}</td>
+                                    <td>{{demand.realname}}</td>
+                                    <td>{{demand.sex==1?"男":"女"}}</td>
+                                    <td>{{demand.company}}</td>
+                                    <td>{{demand.job}}</td>
                                     <td>
-                                        <iswitch :value="user.status" @change="changeStatus(user,$event)"></iswitch>
+                                        <button type="button" class="btn btn-white btn-xs">{{demand.status?"未回复":"已回复"}}</button>
+                                        
                                     </td>
-                                    <td>{{user.createtime | dateFormat}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editUser(user)">编辑</button>
-                                        <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(user)">删除</button>
+                                        <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="reponseDemand(demand)">回复</button>
+                                        <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(demand)">删除</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -51,7 +51,7 @@
     import page_mixin from '@/mixins/page'
     import { getUsers,delUser,editUserStatus } from '@/api/user'
     export default {
-        name:"AdminUser",
+        name:"UserDemandList",
         components:{
             breadcrumb,
             iswitch,
@@ -68,34 +68,27 @@
                         sort:true
                     },
                     {
-                        label:"手机号",
-                        name:"phone",
+                        label:"图片",
                     },
                     {
-                        label:"姓名",
+                        label:"标题",
                         name:"realname",
                     },
                     {
-                        label:"性别",
+                        label:"内容",
                         name:"sex",
-                        filters:[{text:"男",value:1},{text:"女",value:2}],
                     },
                     {
-                        label:"单位",
+                        label:"联系电话",
                         name:"company",
                     },
                     {
-                        label:"职务",
+                        label:"提交时间",
                         name:"job",
                     },
                     {
                         label:"状态",
                         name:"status",
-                        filters:[{text:"启用",value:1},{text:"禁用",value:0}],
-                    },
-                    {
-                        label:"创建时间",
-                        name:"createtime",
                     },
                     {
                         label:"操作",
@@ -109,7 +102,7 @@
                         route:""
                     },
                     {
-                        name:"账户管理",
+                        name:"个性需求管理",
                     }
                 ],
                 actions:[
@@ -126,22 +119,15 @@
             }
         },
         methods:{
-            editUser(user){
-                this.$router.push({name:"user_edit",params:{id:user.id}})
+            reponseDemand(demand){
+                // this.$router.push({name:"user_edit",params:{id:user.id}})
             },
-            doDel(user){
+            doDel(demand){
                 this.$confirm('是否确认删除?').then(()=>{
-                    delUser(user.id).then(()=>{
-                        this.data=this.data.filter(item=>item.id!=user.id)
+                    delUser(demand.id).then(()=>{
+                        this.data=this.data.filter(item=>item.id!=demand.id)
                     })
                 })
-            },
-            changeStatus(user,status){
-                if(status==1){
-                    editUserStatus(user.id, 1)
-                }else{
-                    editUserStatus(user.id, 0)
-                }
             },
             changePage(page){
                 this.params.page=page
@@ -155,7 +141,6 @@
             }
         },
         mounted(){
-            this.params.stype=1
             this.changePage(1)
         }
     }
