@@ -80,8 +80,12 @@
                 data:[],
                 breadcrumbs:[
                     {
-                        name:"医院/政府",
+                        name:"企事业单位",
                         route:""
+                    },
+                    {
+                        name:"医院管理",
+                        route:{name:"hospital"}
                     }
                 ],
                 actions:[
@@ -89,7 +93,7 @@
                         name:"新增",
                         icon:"fa-plus",
                         route:{
-                            name:'company_office_add'
+                            name:'hospital_office_add'
                         }
                     }
                 ],
@@ -99,7 +103,7 @@
         },
         methods:{
             editOffice(office){
-                this.$router.push({name:"company_office_edit",params:{cid:this.company_id,id:office.id}})
+                this.$router.push({name:"hospital_office_edit",params:{cid:this.company_id,id:office.id}})
             },
             doDel(office){
                 this.$confirm('是否确认删除?').then(()=>{
@@ -124,11 +128,11 @@
                 this.company=data
                 this.breadcrumbs.push({
                     name: this.company.name,
-                    route:{name:"company"}
+                    route:{name:"hospital_detail",params:{id:this.company.id}}
                 })
                 this.breadcrumbs.push({
                     name: "科室管理",
-                    route:{name:"company_office",params:{cid:this.company_id}}
+                    route:{name:"hospital_office",params:{cid:this.company_id}}
                 })
             })
         }

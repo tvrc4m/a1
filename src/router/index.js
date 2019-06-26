@@ -22,16 +22,22 @@ const UserDemandList = () => import('@/views/user/demand/index')
 const NewsList = () => import('@/views/news/index')
 const NewsForm = () => import('@/views/news/form')
 
-const CompanyList = () => import('@/views/company/index')
-const CompanyDetail = () => import('@/views/company/detail')
-const CompanyForm = () => import('@/views/company/form')
+const HospitalList = () => import('@/views/company/hospital/index')
+const HospitalDetail = () => import('@/views/company/hospital/detail')
+const HospitalForm = () => import('@/views/company/hospital/form')
+const GovList = () => import('@/views/company/gov/index')
+const GovForm = () => import('@/views/company/gov/form')
+
+const CompanyList = () => import('@/views/company/company/index')
+const CompanyDetail = () => import('@/views/company/company/detail')
+const CompanyForm = () => import('@/views/company/company/form')
 const CompanyUserList = () => import('@/views/company/user/index')
 const CompanyUserForm = () => import('@/views/company/user/form')
 const CompanyRuleList = () => import('@/views/company/rule/index')
 const CompanyRuleForm = () => import('@/views/company/rule/form')
 const CompanyRulePermission = () => import('@/views/company/rule/permission')
-const CompanyOfficeList = () => import('@/views/company/office/index')
-const CompanyOfficeForm = () => import('@/views/company/office/form')
+const HospitalOfficeList = () => import('@/views/company/office/index')
+const HospitalOfficeForm = () => import('@/views/company/office/form')
 
 const OrderList = () => import('@/views/order/index')
 const OrderForm = () => import('@/views/order/form')
@@ -239,6 +245,102 @@ const routes = [
         ]
     },
     {
+        path: '/hospital',
+        components: {
+            default: LayoutBasic,
+        },
+        children:[
+            {
+                path: "",
+                name: "hospital",
+                component:HospitalList,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+            {
+                path: "add",
+                name: "hospital_add",
+                component: HospitalForm,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+            {
+                path: "edit/:id",
+                name: "hospital_edit",
+                component: HospitalForm,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+            {
+                path: "detail/:id",
+                name: "hospital_detail",
+                component: HospitalDetail,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+            {
+                path: ":cid/office",
+                name: "hospital_office",
+                component: HospitalOfficeList,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+            {
+                path: ":cid/office/add",
+                name: "hospital_office_add",
+                component: HospitalOfficeForm,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+            {
+                path: ":cid/office/edit/:id",
+                name: "hospital_office_edit",
+                component: HospitalOfficeForm,
+                meta:{
+                    sidebar:"hospital"
+                }
+            },
+        ]
+    },
+    {
+        path: '/gov',
+        components: {
+            default: LayoutBasic,
+        },
+        children:[
+            {
+                path: "",
+                name: "gov",
+                component:GovList,
+                meta:{
+                    sidebar:"gov"
+                }
+            },
+            {
+                path: "add",
+                name: "gov_add",
+                component: GovForm,
+                meta:{
+                    sidebar:"gov"
+                }
+            },
+            {
+                path: "edit/:id",
+                name: "gov_edit",
+                component: GovForm,
+                meta:{
+                    sidebar:"gov"
+                }
+            },
+        ]
+    },
+    {
         path: '/company',
         components: {
             default: LayoutBasic,
@@ -330,30 +432,6 @@ const routes = [
                 path: ":cid/rule/edit/:id/permission",
                 name: "company_rule_permission",
                 component: CompanyRulePermission,
-                meta:{
-                    sidebar:"company"
-                }
-            },
-            {
-                path: ":cid/office",
-                name: "company_office",
-                component: CompanyOfficeList,
-                meta:{
-                    sidebar:"company"
-                }
-            },
-            {
-                path: ":cid/office/add",
-                name: "company_office_add",
-                component: CompanyOfficeForm,
-                meta:{
-                    sidebar:"company"
-                }
-            },
-            {
-                path: ":cid/office/edit/:id",
-                name: "company_office_edit",
-                component: CompanyOfficeForm,
                 meta:{
                     sidebar:"company"
                 }

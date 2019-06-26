@@ -13,7 +13,12 @@
                         <table class="table table-striped table-bordered dataTable no-footer">
                             <thead>
                                 <tr>
-                                    <th v-for="(header,index) in headers" :key="index">{{header.label}}</th>
+                                    <th v-for="(header,index) in headers" :key="index">
+                                        <div v-if="header.filters && header.filters.length">
+                                           <menu-button :filters="header.filters" :label="header.label" :name="header.name" :selected="params[header.name]" @action="doFilter"></menu-button>
+                                        </div>
+                                        <div v-else>{{header.label}}</div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,7 +31,9 @@
                                     <td>{{news.source}}</td>
                                     <td></td>
                                     <td>
-                                        <iswitch :value="news.status" @change="changeStatus(news,$event)"></iswitch>
+                                        <button type="button" v-if="news.status==0" class="btn btn-white btn-xs">审核中</button>
+                                        <button type="button" v-else-if="news.status==1" class="btn btn-white btn-xs">已上线</button>
+                                        <button type="button" v-else-if="news.status==-1" class="btn btn-white btn-xs">已拒绝</button>
                                     </td>
                                     <td>{{news.createtime | dateFormat}}</td>
                                     <td>
@@ -51,12 +58,14 @@
     import tableLoading from '@/components/loading/table'
     import loading_mixin from '@/mixins/loading'
     import { getNewsList,delNews,updateNewsStatus } from '@/api/news'
+    import menuButton from '@/components/menu/button'
     export default {
         name:"NewsList",
         components:{
             breadcrumb,
             iswitch,
-            tableLoading
+            tableLoading,
+            menuButton
         },
         mixins:[page_mixin,loading_mixin],
         data(){
@@ -88,7 +97,7 @@
                     {
                         label:"状态",
                         name:"status",
-                        filters:[{text:"上线中",value:1},{text:"下线中",value:0}],
+                        filters:[{text:"审核中",value:0},{text:"已上线",value:1},{text:"已驳回",value:-1}],
                     },
                     {
                         label:"创建时间",
@@ -99,6 +108,7 @@
                     }
                 ],
                 data:[],
+                params:{},
                 breadcrumbs:[
                     {
                         name:"新闻管理",
@@ -132,12 +142,9 @@
                     })
                 })
             },
-            changeStatus(news,status){
-                if(status==1){
-                    updateNewsStatus(news.id, 1)
-                }else{
-                    updateNewsStatus(news.id, 0)
-                }
+            doFilter(name,filter){
+                this.$set(this.params, name, filter.value)
+                this.changePage(1)
             },
             changePage(page){
                 this.params.page=page

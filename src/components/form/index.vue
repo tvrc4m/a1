@@ -10,7 +10,6 @@
     import confirm from './confirm'
     import upload from './upload'
     import iswitch from './switch'
-    import rich from './richtext'
     import radio from './radio'
     import datetime from './datetime'
     import datetimerange from './datetimerange'
@@ -33,7 +32,6 @@
                     case 'confirm': return confirm;
                     case 'upload': return upload;
                     case 'switch': return iswitch;
-                    case 'rich': return rich;
                     case 'radio': return radio;
                     case 'datetime': return datetime;
                     case 'datetimerange': return datetimerange;

@@ -33,7 +33,6 @@
                                     <td>
                                         <button type="button" class="btn btn-success btn-xs waves-effect waves-light m-r-10" @click="detailCompany(company)">详情</button>
                                         <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editCompany(company)">编辑</button>
-                                        <button type="button" class="btn btn-warning btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_office',params:{cid:company.id}})">科室</button>
                                         <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(company)">删除</button>
                                     </td>
                                 </tr>
@@ -127,11 +126,6 @@
                 ]
             }
         },
-        watch:{
-            $route(route){
-                this.changePage(1)
-            }
-        },
         methods:{
             editCompany(company){
                 this.$router.push({name:"company_edit",params:{id:company.id}})
@@ -157,25 +151,12 @@
                 })
             }
         },
-        beforeRouteEnter(to,from,next){
-            next(vm=>{
-                getAllTypes().then(types=>{
-                    var type=types.filter(t=>t.alias==to.name)[0]
-                    vm.breadcrumbs=[
-                        {
-                            name:"企事业单位",
-                        },
-                        {
-                            name: type.name
-                        }
-                    ]
-                    vm.params.type = type.id
-
-                })
-            })
-        },
         mounted(){
-            this.changePage(1)
+            getAllTypes().then(types=>{
+                var type=types.filter(t=>t.alias=='company')[0]
+                this.params.type=type.id
+                this.changePage(1)
+            })
         }
     }
 </script>

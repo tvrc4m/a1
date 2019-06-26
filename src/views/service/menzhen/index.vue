@@ -106,8 +106,12 @@
             getCompany(this.company_id).then(data=>{
                 this.company=data
                 this.breadcrumbs.push({
+                    name: "医院管理",
+                    route:{name:"hospital"}
+                })
+                this.breadcrumbs.push({
                     name: this.company.name,
-                    route:{name:"company_detail",params:{id:this.company.id}}
+                    route:{name:"hospital_detail",params:{id:this.company.id}}
                 })
                 this.breadcrumbs.push({
                     name: this.service.name,

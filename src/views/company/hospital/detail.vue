@@ -46,8 +46,12 @@
                 services:[],
                 breadcrumbs:[
                     {
-                        name:"医院/政府",
-                        route:{name:"company"}
+                        name:"企事业单位",
+                        route:{name:""}
+                    },
+                    {
+                        name:"医院管理",
+                        route:{name:"hospital"}
                     }
                 ]
             }
@@ -70,7 +74,7 @@
         },
         methods:{
             editCompany(){
-                this.$router.push({name:"company_edit",params:{id:this.company.id}})
+                this.$router.push({name:"hospital_edit",params:{id:this.company.id}})
             }
         },
         mounted(){

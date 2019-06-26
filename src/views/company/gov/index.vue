@@ -33,7 +33,6 @@
                                     <td>
                                         <button type="button" class="btn btn-success btn-xs waves-effect waves-light m-r-10" @click="detailCompany(company)">详情</button>
                                         <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editCompany(company)">编辑</button>
-                                        <button type="button" class="btn btn-warning btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_office',params:{cid:company.id}})">科室</button>
                                         <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(company)">删除</button>
                                     </td>
                                 </tr>
@@ -108,36 +107,30 @@
                     {
                         name:"企事业单位",
                         route:""
+                    },
+                    {
+                        name:"政府单位",
                     }
                 ],
-                company_type:0,
-                total:0,
-            }
-        },
-        computed:{
-            actions(){
-                return [
+                actions:[
                     {
                         name:"新增",
                         icon:"fa-plus",
                         route:{
-                            name:this.$route.name+'_add'
+                            name:'gov_add'
                         }
                     }
-                ]
-            }
-        },
-        watch:{
-            $route(route){
-                this.changePage(1)
+                ],
+                showModalDel: false,
+                total:0,
             }
         },
         methods:{
             editCompany(company){
-                this.$router.push({name:"company_edit",params:{id:company.id}})
+                this.$router.push({name:"gov_edit",params:{id:company.id}})
             },
             detailCompany(company){
-                this.$router.push({name:"company_detail",params:{id:company.id}})
+                this.$router.push({name:"gov_detail",params:{id:company.id}})
             },
             doDel(company){
                 this.$confirm('是否确认删除?').then(()=>{
@@ -157,25 +150,12 @@
                 })
             }
         },
-        beforeRouteEnter(to,from,next){
-            next(vm=>{
-                getAllTypes().then(types=>{
-                    var type=types.filter(t=>t.alias==to.name)[0]
-                    vm.breadcrumbs=[
-                        {
-                            name:"企事业单位",
-                        },
-                        {
-                            name: type.name
-                        }
-                    ]
-                    vm.params.type = type.id
-
-                })
-            })
-        },
         mounted(){
-            this.changePage(1)
+            getAllTypes().then(types=>{
+                var type=types.filter(t=>t.alias=='gov')[0]
+                this.params.type=type.id
+                this.changePage(1)
+            })
         }
     }
 </script>

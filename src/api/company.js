@@ -11,12 +11,8 @@ export function getAllCompanies(){
     return req.get("/admin/companies")
 }
 // 角色分页
-export function getCompanies(page=1,limit=20){
-    return req.get("/admin/company",{
-        params:{
-            page,limit
-        }
-    })
+export function getCompanies(params={}){
+    return req.get("/admin/company", {params})
 }
 
 export function getCompany(company_id){

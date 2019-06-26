@@ -76,12 +76,26 @@
                         ]
                     },
                     {
-                        name:"医院/政府",
-                        key:"company",
+                        name:"企事业单位",
                         icon:"ti-crown",
                         open:true,
-                        url:"/company",
-                        chear:[]
+                        chear:[
+                            {
+                                name:"医院管理",
+                                url:"/hospital",
+                                key:"hospital"
+                            },
+                            {
+                                name:"政府单位",
+                                url:"/gov",
+                                key:"gov"
+                            },
+                            {
+                                name:"市场企业",
+                                url:"/company",
+                                key:"company"
+                            },
+                        ]
                     },
                     {
                         name:"订单管理",
@@ -93,11 +107,20 @@
                     },
                     {
                         name:"新闻管理",
-                        key:"news",
                         icon:"ti-gallery",
                         open:true,
-                        url:"/news",
-                        chear:[]
+                        chear:[
+                            {
+                                name:"新闻列表",
+                                url:"/news",
+                                key:"news"
+                            },
+                            {
+                                name:"审核列表",
+                                url:"/news/verify",
+                                key:"news_verify"
+                            }
+                        ]
                     },
                     {
                         name:"政策速递",
