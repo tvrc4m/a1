@@ -9,7 +9,7 @@
                 <ul style="z-index: 999999;">
                     <template v-for="menu in menus">
                         <li class="has_sub" v-if="menu.chear && menu.chear.length>0">
-                            <a href="javascript:void(0);" :class="['waves-effect',{subdrop:menu.open,'active':($route.path==menu.url || $route.meta.sidebar==menu.key)}]" @click="menu.open=!menu.open">
+                            <a href="javascript:void(0);" :class="['waves-effect',{subdrop:menu.open,'active':($route.path==menu.url || (menu.key && $route.meta.sidebar==menu.key))}]" @click="menuClick(menu)">
                                 <i :class="menu.icon"></i> 
                                 <span> {{menu.name}} </span>
                                 <span v-if="menu.chear && menu.chear.length" class="menu-arrow"></span>
@@ -21,7 +21,7 @@
                             </ul>
                         </li>
                         <li class="has_sub" v-else>
-                            <a href="javascript:void(0);" :class="['waves-effect',{subdrop:$route.path==menu.url,'active':$route.path==menu.url || $route.meta.sidebar==menu.key}]"  @click="$router.push({path:menu.url})">
+                            <a href="javascript:void(0);" :class="['waves-effect',{subdrop:$route.path==menu.url,'active':$route.path==menu.url || (menu.key && $route.meta.sidebar==menu.key)}]"  @click="$router.push({path:menu.url})">
                                 <i :class="menu.icon"></i> 
                                 <span>{{menu.name}}</span>
                             </a>
@@ -55,7 +55,7 @@
                         name:"后台账户",
                         key:"account",
                         icon:"ti-user",
-                        open:true,
+                        open:false,
                         url:"/adm",
                         chear:[
                             {
@@ -78,7 +78,7 @@
                     {
                         name:"企事业单位",
                         icon:"ti-crown",
-                        open:true,
+                        open:false,
                         chear:[
                             {
                                 name:"医院管理",
@@ -98,17 +98,23 @@
                         ]
                     },
                     {
-                        name:"订单管理",
-                        key:"order",
+                        name:"生活服务管理",
+                        key:"hospital_order",
                         icon:"ti-receipt",
-                        open:true,
-                        url:"/order",
+                        open:false,
+                        chear:[]
+                    },
+                    {
+                        name:"工作服务管理",
+                        key:"gov_order",
+                        icon:"ti-receipt",
+                        open:false,
                         chear:[]
                     },
                     {
                         name:"新闻管理",
                         icon:"ti-gallery",
-                        open:true,
+                        open:false,
                         chear:[
                             {
                                 name:"新闻列表",
@@ -126,7 +132,7 @@
                         name:"政策速递",
                         key:"policy",
                         icon:"ti-rocket",
-                        open:true,
+                        open:false,
                         chear:[
                             {
                                 name:"模块管理",
@@ -144,7 +150,7 @@
                         name:"人才管理",
                         key:"user",
                         icon:"ti-user",
-                        open:true,
+                        open:false,
                         chear:[
                             {
                                 name:"用户管理",
@@ -168,21 +174,32 @@
         },
         methods:{
             menuClick(menu){
-                if(this.selected==menu.key){
-                    this.selected=null
-                }else{
-                    this.selected=menu.key
-                }
+                this.menus=this.menus.map(m=>{
+                    if(m.name!=menu.name){
+                        m.open=false
+                    }
+                    return m
+                })
+                menu.open=!menu.open
             }
         },
         mounted(){
              getAllServices().then(data=>{
-                this.services=data.map(item=>{
+                this.hospital_services=data.filter(item=>{
+                    return item.type==1
+                }).map(item=>{
+                    return {name:item.name,url:`/order/${item.alias}`,key:item.alias}
+                })
+                this.gov_services=data.filter(item=>{
+                    return item.type==2
+                }).map(item=>{
                     return {name:item.name,url:`/order/${item.alias}`,key:item.alias}
                 })
                 for(let index in this.menus){
-                    if(this.menus[index].key=="order"){
-                        this.menus[index]['chear']=this.services
+                    if(this.menus[index].key=="hospital_order"){
+                        this.menus[index]['chear']=this.hospital_services
+                    }else if(this.menus[index].key=="gov_order"){
+                        this.menus[index]['chear']=this.gov_services
                     }
                 }
             })

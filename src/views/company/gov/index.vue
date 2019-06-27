@@ -151,11 +151,8 @@
             }
         },
         mounted(){
-            getAllTypes().then(types=>{
-                var type=types.filter(t=>t.alias=='gov')[0]
-                this.params.type=type.id
-                this.changePage(1)
-            })
+            this.$set(this.params, 'type', 2)
+            this.changePage(1)
         }
     }
 </script>

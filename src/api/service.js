@@ -1,7 +1,9 @@
 import req from '@/utils/request'
 
-export function getAllServices(){
-    return req.get("/admin/services")
+export function getAllServices(type=0){
+    return req.get("/admin/services",{
+        params:{type}
+    })
 }
 
 export function getServices(page=1,limit=20){

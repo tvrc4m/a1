@@ -107,6 +107,10 @@
                     {
                         name:"企事业单位",
                         route:""
+                    },
+                    {
+                        name:"企业管理",
+                        route:""
                     }
                 ],
                 company_type:0,
@@ -152,11 +156,8 @@
             }
         },
         mounted(){
-            getAllTypes().then(types=>{
-                var type=types.filter(t=>t.alias=='company')[0]
-                this.params.type=type.id
-                this.changePage(1)
-            })
+            this.$set(this.params, 'type', 3)
+            this.changePage(1)
         }
     }
 </script>

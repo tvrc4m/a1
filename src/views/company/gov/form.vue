@@ -9,7 +9,7 @@
         <div class="row">
             <form class="form-horizontal" role="form">
                 <iform type="text" label="企业名称" placeholder="请输入企业名称" :value.sync="company.name" required></iform>
-                <iform type="upload" label="上传头像" @change-file="uploadImg" :btnSize="11" :small="true" :url="company.logo"></iform>
+                <iform type="upload" label="上传logo" @change-file="uploadImg" :btnSize="11" :small="true" :url="company.logo"></iform>
                 <iform type="text" label="企业地址" placeholder="请输入企业地址" :value.sync="company.address" required></iform>
                 <iform type="text" label="联系人" placeholder="请输入联系人" :value.sync="company.contact" required></iform>
                 <iform type="text" label="联系人电话" placeholder="请输入联系人电话" required :value.sync="company.tel"></iform>
@@ -79,6 +79,7 @@
                     this.$message.error("请选择要开通的企业服务")
                     return false
                 }
+                this.company.type=1
                 if(this.add){
                     addCompany(this.company).then(data=>{
                         this.$message.success("添加成功")
@@ -100,7 +101,7 @@
                     this.company=data
                 })
             }
-            getAllServices().then(data=>{
+            getAllServices(2).then(data=>{
                 this.services=data.map(item=>{
                     return {
                         name:item.name,
@@ -110,12 +111,12 @@
             })
             this.breadcrumbs=[
                 {
-                    name:"企事业管理",
+                    name:"企事业单位",
                     route:""
                 },
                 {
-                    name:"医院管理",
-                    route:{name:"company"}
+                    name:"政府单位",
+                    route:{name:"gov"}
                 },
                 {
                     name:this.add?"新增":"编辑",

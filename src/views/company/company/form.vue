@@ -9,12 +9,13 @@
         <div class="row">
             <form class="form-horizontal" role="form">
                 <iform type="text" label="企业名称" placeholder="请输入企业名称" :value.sync="company.name" required></iform>
-                <iform type="upload" label="上传头像" @change-file="uploadImg" :btnSize="11" :small="true" :url="company.logo"></iform>
+                <iform type="upload" label="上传logo" @change-file="uploadImg" :btnSize="11" :small="true" :url="company.logo"></iform>
                 <iform type="text" label="企业地址" placeholder="请输入企业地址" :value.sync="company.address" required></iform>
                 <iform type="text" label="联系人" placeholder="请输入联系人" :value.sync="company.contact" required></iform>
                 <iform type="text" label="联系人电话" placeholder="请输入联系人电话" required :value.sync="company.tel"></iform>
                 <iform type="selectmulti" label="开通服务" placeholder="请选择要开通的企业服务" required :options="services" :value.sync="company.services"></iform>
-                <iform type="textarea" label="介绍" placeholder="请输入介绍" required :value.sync="company.content"></iform>
+                <iform type="textarea" label="公司介绍" placeholder="请输入公司介绍" required :value.sync="company.content"></iform>
+                <iform type="textarea" label="业务介绍" placeholder="请输入业务介绍" required :value.sync="company.business"></iform>
                 <iform type="text" label="排序" placeholder="请输入排序值" :value.sync="company.sort"></iform>
                 <iform type="confirm" @submit="updateCompany"></iform>
             </form>
@@ -79,6 +80,7 @@
                     this.$message.error("请选择要开通的企业服务")
                     return false
                 }
+                this.company.type=1
                 if(this.add){
                     addCompany(this.company).then(data=>{
                         this.$message.success("添加成功")
@@ -110,11 +112,11 @@
             })
             this.breadcrumbs=[
                 {
-                    name:"医院/政府",
+                    name:"企事业单位",
                     route:""
                 },
                 {
-                    name:"医院列表",
+                    name:"企业管理",
                     route:{name:"company"}
                 },
                 {

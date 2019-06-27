@@ -28,11 +28,19 @@
     import { getOrders,delOrder } from '@/api/service/order'
     import { getServiceDetail } from '@/api/service'
     import { getAllCompanies } from '@/api/company'
-    import TijianOrder from './tijian/index'
-    import JiatingOrder from './jiating/index'
-    import MenzhenOrder from './menzhen/index'
-    import LiliaoOrder from './liliao/index'
-    import ZhuyuanOrder from './zhuyuan/index'
+    import TijianOrder from './hospital/tijian/index'
+    import JiatingOrder from './hospital/jiating/index'
+    import MenzhenOrder from './hospital/menzhen/index'
+    import LiliaoOrder from './hospital/liliao/index'
+    import ZhuyuanOrder from './hospital/zhuyuan/index' 
+    import JiaotongOrder from './hospital/jiaotong/index' // 交通服务
+    import JiaoyuOrder from './hospital/jiaoyu/index' // 子女教育
+    import JiuyuanOrder from './hospital/jiuyuan/index' // 紧急救援
+
+    import GovGongShangOrder from './gov/gongshang/index'
+    import GovGongJiJinOrder from './gov/gongjijin/index'
+    import GovSheBaoOrder from './gov/shebao/index'
+    import GovShuiwuOrder from './gov/shuiwu/index'
     export default {
         name:"ServiceOrderList",
         components:{
@@ -60,11 +68,20 @@
         computed:{
             orderTable(){
                 switch(this.service.alias){
+                    // 医院生活服务
                     case 'tijian':return TijianOrder
                     case 'jiating':return JiatingOrder
                     case 'menzhen':return MenzhenOrder
                     case 'liliao':return LiliaoOrder
                     case 'zhuyuan':return ZhuyuanOrder
+                    case 'jiaotong':return JiaotongOrder
+                    case 'jiaoyu':return JiaoyuOrder
+                    case 'jiuyuan':return JiuyuanOrder
+                    // 政府工作服务
+                    case 'gongshang':return GovGongShangOrder
+                    case 'gongjijin':return GovGongJiJinOrder
+                    case 'shebao':return GovSheBaoOrder
+                    case 'shuiwu':return GovShuiwuOrder
                 }
             }
         },
@@ -80,7 +97,7 @@
         },
         methods:{
             editOrder(user){
-                this.$router.push({name:"user_edit",params:{id:user.id}})
+                this.$router.push({name:"order_edit",params:{id:user.id}})
             },
             doDel(user){
                 this.$confirm('是否确认删除?').then(()=>{

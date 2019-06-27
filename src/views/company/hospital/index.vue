@@ -142,6 +142,7 @@
             },
             changePage(page){
                 this.params.page=page
+                console.log(this.params)
                 getCompanies(this.params).then(data=>{
                     console.log("data:",data)
                     this.loading=false
@@ -152,11 +153,8 @@
             }
         },
         mounted(){
-            getAllTypes().then(types=>{
-                var type=types.filter(t=>t.alias=='hospital')[0]
-                this.params.type=type.id
-                this.changePage(1)
-            })
+            this.$set(this.params, 'type', 1);
+            this.changePage(1)
         }
     }
 </script>
