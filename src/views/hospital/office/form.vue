@@ -35,9 +35,13 @@
                 add:true,
                 breadcrumbs:[
                     {
-                        name:"医院/政府",
+                        name:"企事业管理",
                         route:""
-                    }
+                    },
+                    {
+                        name:"医院管理",
+                        route:{name:"hospital"}
+                    },
                 ],
                 rules:[],
             }
@@ -52,12 +56,12 @@
                 if(this.add){
                     addOffice(this.office).then(data=>{
                         this.$message.success("添加成功")
-                        this.$router.push({name:"company_office"})
+                        this.$router.push({name:"hospital_office"})
                     })
                 }else{
                     editOffice(this.office).then(()=>{
                         this.$message.success("编辑成功")
-                        this.$router.push({name:"company_office"})
+                        this.$router.push({name:"hospital_office"})
                     })
                 }
                 console.log(this.office)
@@ -75,11 +79,11 @@
                 this.company=data
                 this.breadcrumbs.push({
                     name: this.company.name,
-                    route:{name:"company"}
+                    route:{name:"hospital"}
                 })
                 this.breadcrumbs.push({
                     name: "科室管理",
-                    route:{name:"company_office",params:{cid:this.company_id}}
+                    route:{name:"hospital_office",params:{cid:this.company_id}}
                 })
                 this.breadcrumbs.push({
                     name: this.add?"新增":"编辑",

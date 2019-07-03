@@ -17,23 +17,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(company,index) in data" :key="index">
-                                    <td>{{company.id}}</td>
-                                    <td>{{company.name}}</td>
+                                <tr v-for="(user,index) in data" :key="index">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.phone}}</td>
+                                    <td>{{user.nickname}}</td>
+                                    <td>{{user.rule}}</td>
+                                    <td>{{user.createtime}}</td>
                                     <td>
-                                        <router-link :to="{name:'service_setting',params:{alias:service.alias,cid:company.id}}" v-for="service in company.services" :key="service.alias">&nbsp;[{{service.name}}]&nbsp;</router-link>
-                                    </td>
-                                    <td>{{company.contact}}</td>
-                                    <td>{{company.address}}</td>
-                                    <!-- <td>{{company.sort}}</td> -->
-                                    <td>
-                                        <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_rule',params:{cid:company.id}})">角色列表</button>
-                                        <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_user',params:{cid:company.id}})">用户列表</button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs waves-effect waves-light m-r-10" @click="detailCompany(company)">详情</button>
-                                        <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editCompany(company)">编辑</button>
-                                        <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(company)">删除</button>
+                                        <button type="button" class="btn btn-primary btn-xs waves-effect waves-light m-r-10" @click="editUser(user)">编辑</button>
+                                        <button type="button" class="btn btn-danger btn-xs waves-effect waves-light m-r-10" @click="doDel(user)">删除</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -52,10 +44,10 @@
     import tableLoading from '@/components/loading/table'
     import loading_mixin from '@/mixins/loading'
     import page_mixin from '@/mixins/page'
-    import { getCompanies,delCompany } from '@/api/company'
-    import { getAllTypes } from '@/api/company/type'
+    import { getCompanyUsers,delCompanyUser } from '@/api/company/user'
+    import { getCompany } from '@/api/company'
     export default {
-        name:"AdminCompany",
+        name:"CompanyUser",
         components:{
             breadcrumb,
             iswitch,
@@ -64,6 +56,8 @@
         mixins:[page_mixin,loading_mixin],
         data(){
             return {
+                company_id:null,
+                company:{},
                 headers:[
                     {
                         label:"ID",
@@ -72,30 +66,20 @@
                         sort:true
                     },
                     {
-                        label:"企业名",
-                        name:"name",
+                        label:"手机号",
+                        name:"phone",
                     },
                     {
-                        label:"开通企业服务",
-                        name:"services",
+                        label:"昵称",
+                        name:"nickname",
                     },
                     {
-                        label:"联系人",
-                        name:"contact",
+                        label:"角色",
+                        name:"rule",
                     },
                     {
-                        label:"地址",
-                        name:"address",
-                    },
-                    // {
-                    //     label:"排序",
-                    //     name:"sort",
-                    //     sort: true
-                    // },
-                    {
-                        label:"用户/角色",
-                        name:"user_rule",
-                        sort: true
+                        label:"创建时间",
+                        name:"createtime",
                     },
                     {
                         label:"操作",
@@ -110,14 +94,15 @@
                     },
                     {
                         name:"政府单位",
-                    }
+                        route:{name:"gov"}
+                    },
                 ],
                 actions:[
                     {
                         name:"新增",
                         icon:"fa-plus",
                         route:{
-                            name:'gov_add'
+                            name:'gov_user_add'
                         }
                     }
                 ],
@@ -126,33 +111,38 @@
             }
         },
         methods:{
-            editCompany(company){
-                this.$router.push({name:"gov_edit",params:{id:company.id}})
+            editUser(user){
+                this.$router.push({name:"gov_user_edit",params:{id:user.id}})
             },
-            detailCompany(company){
-                this.$router.push({name:"gov_detail",params:{id:company.id}})
-            },
-            doDel(company){
+            doDel(user){
                 this.$confirm('是否确认删除?').then(()=>{
-                    delCompany(company.id).then(()=>{
-                        this.data=this.data.filter(item=>item.id!=company.id)
+                    delCompanyUser(this.company_id, user.id).then(()=>{
+                        this.data=this.data.filter(item=>item.id!=user.id)
                     })
                 })
             },
             changePage(page){
-                this.params.page=page
-                getCompanies(this.params).then(data=>{
-                    console.log("data:",data)
+                getCompanyUsers(this.company_id, page).then(data=>{
                     this.loading=false
                     this.data=data.data
                     this.total=data.total
-                    console.log(data)
                 })
             }
         },
         mounted(){
-            this.$set(this.params, 'type', 2)
+            this.company_id=this.$route.params.cid
             this.changePage(1)
+            getCompany(this.company_id).then(data=>{
+                this.company=data
+                this.breadcrumbs.push({
+                    name: this.company.name,
+                    route:{name:"gov"}
+                })
+                this.breadcrumbs.push({
+                    name: "账户管理",
+                    route:{name:"gov_user",params:{id:this.company_id}}
+                })
+            })
         }
     }
 </script>

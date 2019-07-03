@@ -14,7 +14,7 @@
                                 <span> {{menu.name}} </span>
                                 <span v-if="menu.chear && menu.chear.length" class="menu-arrow"></span>
                             </a>
-                            <ul v-if="menu.chear && menu.chear.length" v-show="menu.open" class="list-unstyled" :class="{mini:minibar}">
+                            <ul v-if="menu.chear && menu.chear.length" v-show="openMenu(menu)" class="list-unstyled" :class="{mini:minibar}">
                                 <li v-for="submenu in menu.chear">
                                     <router-link :to="submenu.url" :class="{'active':$route.path==submenu.url || $route.meta.sidebar==submenu.key}">{{submenu.name}}</router-link>
                                 </li>
@@ -181,6 +181,18 @@
                     return m
                 })
                 menu.open=!menu.open
+            },
+            openMenu(menu){
+                if(menu.open){
+                    return true
+                }else if(typeof(menu.chear)!='undefined' && menu.chear && menu.chear.length>0){
+                    for(let index in menu.chear){
+                        if(menu.chear[index].key && this.$route.meta.sidebar==menu.chear[index].key){
+                            return true
+                        }
+                    }
+                }
+                return false
             }
         },
         mounted(){

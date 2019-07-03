@@ -79,16 +79,16 @@
                     this.$message.error("请选择要开通的企业服务")
                     return false
                 }
-                this.company.type=1
+                this.company.type=1;
                 if(this.add){
                     addCompany(this.company).then(data=>{
                         this.$message.success("添加成功")
-                        this.$router.push({name:"company"})
+                        this.$router.push({name:"hospital"})
                     })
                 }else{
                     editCompany(this.company.id,this.company).then(()=>{
                         this.$message.success("编辑成功")
-                        this.$router.push({name:"company"})
+                        this.$router.push({name:"hospital"})
                     })
                 }
                 console.log(this.company)
@@ -101,7 +101,7 @@
                     this.company=data
                 })
             }
-            getAllServices(2).then(data=>{
+            getAllServices().then(data=>{
                 this.services=data.map(item=>{
                     return {
                         name:item.name,
@@ -111,12 +111,12 @@
             })
             this.breadcrumbs=[
                 {
-                    name:"企事业单位",
+                    name:"企事业管理",
                     route:""
                 },
                 {
-                    name:"政府单位",
-                    route:{name:"gov"}
+                    name:"医院管理",
+                    route:{name:"hospital"}
                 },
                 {
                     name:this.add?"新增":"编辑",

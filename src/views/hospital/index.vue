@@ -27,8 +27,8 @@
                                     <td>{{company.address}}</td>
                                     <!-- <td>{{company.sort}}</td> -->
                                     <td>
-                                        <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_rule',params:{cid:company.id}})">角色列表</button>
-                                        <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'company_user',params:{cid:company.id}})">用户列表</button>
+                                        <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'hospital_rule',params:{cid:company.id}})">角色列表</button>
+                                        <button type="button" class="btn btn-white btn-xs waves-effect waves-light m-r-10" @click="$router.push({name:'hospital_user',params:{cid:company.id}})">用户列表</button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-success btn-xs waves-effect waves-light m-r-10" @click="detailCompany(company)">详情</button>
