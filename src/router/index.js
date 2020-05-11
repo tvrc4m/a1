@@ -55,8 +55,8 @@ const OrderList = () => import('@/views/order/index')
 const OrderForm = () => import('@/views/order/form')
 
 const ServiceSetting = () => import('@/views/service/setting')
-const TijianPakcageForm = () => import('@/views/service/tijian/package/form')
-const JiatingDoctorForm = () => import('@/views/service/jiating/doctor/form')
+const TijianPakcageForm = () => import('@/views/service/hospital/tijian/package/form')
+const JiatingDoctorForm = () => import('@/views/service/hospital/jiating/doctor/form')
 
 const PolicyModuleList = () => import('@/views/policy/module/index')
 const PolicyModuleForm = () => import('@/views/policy/module/form')

@@ -19,8 +19,8 @@
                         <iform type="datetimerange" label="开启时间段" :start.sync="news.banner_start_date" :end.sync="news.banner_end_date"></iform>
                     </div>
                 </div>
-                
-                <iform type="textarea" label="内容" placeholder="请输入内容" :value.sync="news.content" required></iform>
+                <UEditor @ready="ueditorReady" :content.sync="news.content" style="line-height: 20px !important;"></UEditor>
+                <!-- <iform type="textarea" label="内容" placeholder="请输入内容" :value.sync="news.content" required></iform> -->
                 <iform type="text" label="排序值" placeholder="从大到小排序" :value.sync="news.sort"></iform>
                 <!-- <iform type="switch" label="状态" :value.sync="news.status"></iform> -->
                 <iform type="confirm" @submit="updateNews"></iform>
@@ -34,11 +34,13 @@
     import { addNews,getNews,editNews } from '@/api/news'
     import { uploadImage,getImageUrl } from '@/api/upload'
     import { assertEmpty,assertNumber,assertLength,assertEmail,assertPhone } from '@/utils/validate'
+    import UEditor from '@/components/ueditor'
     export default {
         name:"NewsForm",
         components:{
             iform,
-            breadcrumb
+            breadcrumb,
+            UEditor
         },
         data(){
             return {
@@ -49,7 +51,7 @@
                     banner_status:0,
                     banner:'',
                     banner_sort:0,
-                    content:null,
+                    content:"",
                 },
                 breadcrumbs:[],
                 bannerValue:0,
@@ -100,6 +102,11 @@
                         this.$router.push({name:"news"})
                     })
                 }
+            },
+            ueditorReady(instance){
+                instance.addListener('contentChange', () => {
+                    this.news.content = instance.getContent();
+                });
             }
         },
         mounted(){

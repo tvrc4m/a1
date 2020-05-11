@@ -6,11 +6,11 @@
     </div>
 </template>
 <script>
-    import tijian from './tijian/package/index'
-    import jiating from './jiating/doctor/index'
-    import liliao from './liliao/index'
-    import menzhen from './menzhen/index'
-    import zhuyuan from './zhuyuan/index'
+    import tijian from './hospital/tijian/package/index'
+    import jiating from './hospital/jiating/doctor/index'
+    import liliao from './hospital/liliao/index'
+    import menzhen from './hospital/menzhen/index'
+    import zhuyuan from './hospital/zhuyuan/index'
     export default {
         data() {
             return {
